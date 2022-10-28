@@ -19,7 +19,7 @@ public class RecipesRepository : BaseRepository
     return newRecipe;
   }
 
-  internal List<Recipe> GetAllRecipes()
+  public List<Recipe> GetAllRecipes()
   {
     string sql = @"
     SELECT
@@ -29,13 +29,13 @@ public class RecipesRepository : BaseRepository
     FROM recipes rec
     JOIN accounts a ON a.id = rec.creatorId
     LEFT JOIN favorites fav ON fav.recipeId = fav.id
-    GROUP BY fav.id
+    GROUP BY rec.id
     ;";
     return _db.Query<Recipe, Profile, Recipe>(sql, (recipe, profile) =>
     {
       recipe.Creator = profile;
       return recipe;
-    }).AsList();
+    }).ToList();
   }
 
   internal Recipe GetById(int recipeId)

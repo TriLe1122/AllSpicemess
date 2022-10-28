@@ -2,7 +2,7 @@ namespace AllSpice.Models;
 
 public class Recipe : ICreated, IRepoItem<int>
 {
-  public string creatorId { get; set; }
+  public string CreatorId { get; set; }
   public Profile Creator { get; set; }
   public int Id { get; set; }
   public DateTime CreatedAt { get; set; }

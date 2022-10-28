@@ -3,7 +3,7 @@ namespace AllSpice.Interfaces;
 
 public interface ICreated
 {
-  string creatorId { get; set; }
+  string CreatorId { get; set; }
 
   Profile Creator { get; set; }
 }

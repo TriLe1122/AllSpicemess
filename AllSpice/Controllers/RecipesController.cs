@@ -18,12 +18,13 @@ public class RecipesController : ControllerBase
   }
 
   [HttpPost]
+  [Authorize]
   public async Task<ActionResult<Recipe>> CreateRecipe([FromBody] Recipe newRecipe)
   {
     try
     {
       Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
-      newRecipe.creatorId = userInfo.Id;
+      newRecipe.CreatorId = userInfo.Id;
       Recipe createdRecipe = _rs.CreateRecipe(newRecipe);
 
       return Ok(createdRecipe);
