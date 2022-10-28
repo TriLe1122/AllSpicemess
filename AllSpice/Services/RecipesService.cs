@@ -1,5 +1,4 @@
 namespace AllSpice.Services;
-
 public class RecipesService
 {
   private readonly RecipesRepository _recipesRepo;
@@ -21,7 +20,7 @@ public class RecipesService
     return _recipesRepo.GetAllRecipes();
   }
 
-  internal Recipe GetRecipeById(int recipeId)
+  internal Recipe GetById(int recipeId)
   {
     Recipe foundRecipe = _recipesRepo.GetById(recipeId);
     if (foundRecipe == null)
@@ -33,15 +32,16 @@ public class RecipesService
 
   internal void ArchiveRecipe(int recipeId, string accountId)
   {
-    Recipe foundRecipe = GetRecipeById(recipeId);
+    Recipe foundRecipe = GetById(recipeId);
     if (foundRecipe == null)
     {
       throw new Exception("Recipe is already archived");
     }
     if (foundRecipe.CreatorId != accountId)
     {
-      throw new Exception("Unauthorized to archive this recipe");
+      throw new Exception("Unauthorized to archive recipe");
     }
+
     foundRecipe.Archived = true;
     _recipesRepo.ArchiveRecipe(foundRecipe);
   }
@@ -50,15 +50,15 @@ public class RecipesService
   {
     if (recipeData.CreatorId != accountId)
     {
-      throw new Exception("unauthorized to edit this recipe");
+      throw new Exception("Unauthorized to edit this recipe");
     }
-    Recipe original = GetRecipeById(recipeData.Id);
 
+    Recipe original = GetById(recipeData.Id);
     original.Category = recipeData.Category ?? original.Category;
     original.Img = recipeData.Img ?? original.Img;
     original.Instructions = recipeData.Instructions ?? original.Instructions;
     original.Title = recipeData.Title ?? original.Title;
-    Recipe recipe = _recipesRepo.EditRecipe(original);
+    Recipe recipe =  _recipesRepo.EditRecipe(original);
     return recipe;
   }
 }

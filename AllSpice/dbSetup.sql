@@ -1,4 +1,5 @@
 -- Active: 1666715682905@@SG-bumpy-salsa-2352-6840-mysql-master.servers.mongodirector.com@3306@garbagecollector
+
 CREATE TABLE
     IF NOT EXISTS accounts(
         id VARCHAR(255) NOT NULL primary key COMMENT 'primary key',
@@ -11,7 +12,7 @@ CREATE TABLE
 
 CREATE TABLE
     IF NOT EXISTS recipes(
-        id INT NOT NULL primary key AUTO_INCREMENT,
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
         title VARCHAR(255) NOT NULL,
@@ -20,27 +21,27 @@ CREATE TABLE
         category VARCHAR(255) NOT NULL,
         archived TINYINT DEFAULT 0,
         creatorId VARCHAR(255) NOT NULL,
-        Foreign Key (creatorId) REFERENCES accounts(id) 
+        FOREIGN KEY(creatorId) REFERENCES accounts(id)
     ) default charset utf8 COMMENT '';
 
 CREATE TABLE
-    IF NOT EXISTS ingredient(
-        id INT NOT NULL primary key AUTO_INCREMENT,
+    IF NOT EXISTS ingredients(
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
         name VARCHAR(255) NOT NULL,
-        quantity varchar(255) NOT NULL,
+        quantity VARCHAR(255) NOT NULL,
         recipeId INT NOT NULL,
-        Foreign Key (recipeId) REFERENCES recipes(id) 
+        FOREIGN KEY (recipeId) REFERENCES recipes(id)
     ) default charset utf8 COMMENT '';
 
 CREATE TABLE
     IF NOT EXISTS favorites(
-        id VARCHAR(255) NOT NULL primary key,
+        id VARCHAR(255) NOT NULL PRIMARY KEY ,
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
         accountId VARCHAR(255) NOT NULL,
         recipeId INT NOT NULL,
-        Foreign Key (accountId) REFERENCES accounts(id) ,
-        Foreign Key (recipeId) REFERENCES recipes(id) 
+        FOREIGN KEY (accountId) REFERENCES accounts(id) ON DELETE CASCADE,
+        FOREIGN KEY (recipeId) REFERENCES recipes (id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';

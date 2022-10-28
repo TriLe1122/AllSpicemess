@@ -1,16 +1,16 @@
 {
   "folders": [
     {
-      "path": "AllSpice.client",
-      "name": "client"
+      "name": "client",
+      "path": "AllSpice.client"
     },
     {
-      "path": "AllSpice",
-      "name": "server"
+      "name": "AllSpice",
+      "path": "../../fall22/TUNGALLSPICE/AllSpice/AllSpice"
     },
     {
-      "path": ".github/workflows",
-      "name": "workflows"
+      "name": "workflows",
+      "path": ".github/workflows"
     }
   ],
   "settings": {
